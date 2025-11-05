@@ -1,42 +1,60 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --color-background: #eae3d2;
+    --color-text: #110917;
+    --color-muted: #4b3f5b;
+    --color-muted-strong: #2e1f42;
+    --color-accent: #a3f2ec;
+    --color-success: #76ef92;
+    --color-warning: #f8d84b;
+    --color-danger: #e23426;
+    --color-info: #4778a8;
+    --color-surface: #f7f0de;
+    --color-border: #d2c5a7;
+    --color-highlight: rgba(248, 216, 75, 0.22);
+    --color-pill-bg: rgba(163, 242, 236, 0.35);
+    --shadow-soft: 0 10px 20px rgba(17, 9, 23, 0.08);
+    --shadow-hover: 0 18px 26px rgba(17, 9, 23, 0.12);
+    --shadow-input: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family:
+        var(--font-geist-sans),
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
 }

@@ -1,0 +1,240 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem clamp(1.2rem, 4vw, 2.5rem);
+    color: var(--color-text);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.title {
+    font-size: clamp(1.75rem, 4vw, 2.2rem);
+    line-height: 1.1;
+}
+
+.subtitle {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    max-width: 48ch;
+}
+
+.catalogLink {
+    align-self: flex-start;
+    color: var(--color-info);
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.9rem;
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.catalogLink:hover {
+    box-shadow: var(--shadow-soft);
+    background: color-mix(
+        in srgb,
+        var(--color-accent) 18%,
+        var(--color-surface)
+    );
+}
+
+.summary {
+    display: flex;
+    gap: 1.25rem;
+    background: var(--color-surface);
+    border-radius: 16px;
+    padding: 0.75rem 1.1rem;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
+    flex-wrap: wrap;
+}
+
+.summary > div {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+}
+
+.summaryNumber {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.summaryLabel {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.emptyState {
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    color: var(--color-muted);
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    align-items: stretch;
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-height: 220px;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.cardTitle {
+    font-size: 1.2rem;
+    color: var(--color-text);
+}
+
+.cardMeta {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+}
+
+.cardDescription {
+    color: var(--color-text);
+    font-size: 0.8rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cardBody {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+    align-items: stretch;
+}
+
+.countField {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.countField span {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted-strong);
+}
+
+.countField input {
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.55rem;
+    font-size: 0.9rem;
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-input);
+}
+
+.countField input:focus {
+    outline: none;
+    border-color: var(--color-info);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-info) 22%, transparent);
+}
+
+.remaining {
+    background: var(--color-highlight);
+    border-radius: 12px;
+    padding: 0.55rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.75rem;
+}
+
+.remaining span {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-strong);
+    font-weight: 600;
+}
+
+.remaining strong {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.removeButton {
+    border: none;
+    background: color-mix(in srgb, var(--color-danger) 92%, transparent);
+    color: var(--color-background);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.removeButton:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        padding: 1.5rem 1rem;
+    }
+
+    .summary {
+        gap: 0.75rem;
+    }
+
+    .cardBody {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
