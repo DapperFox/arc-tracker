@@ -27,14 +27,10 @@
 }
 
 .trackedLink {
-    background: color-mix(
-        in srgb,
-        var(--color-accent) 75%,
-        var(--color-background)
-    );
+    background: var(--color-warning);
     color: var(--color-text);
-    padding: 0.65rem 1.1rem;
-    border-radius: 999px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 18px;
     font-weight: 600;
     text-decoration: none;
     transition:
@@ -47,7 +43,7 @@
 .trackedLink:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
-    background: color-mix(in srgb, var(--color-accent) 40%, var(--color-info));
+    background: color-mix(in srgb, var(--color-warning) 75%, var(--color-info));
 }
 
 .controls {

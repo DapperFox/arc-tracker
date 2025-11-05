@@ -62,13 +62,21 @@ const writeToStorage = (state: TrackedItemsState) => {
 };
 
 export function TrackedItemsProvider({ children }: { children: ReactNode }) {
-  const [tracked, setTracked] = useState<TrackedItemsState>(() =>
-    readFromStorage(),
-  );
+  const [tracked, setTracked] = useState<TrackedItemsState>({});
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTracked(readFromStorage());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) {
+      return;
+    }
     writeToStorage(tracked);
-  }, [tracked]);
+  }, [tracked, hydrated]);
 
   const value = useMemo<TrackedItemsContextValue>(
     () => ({

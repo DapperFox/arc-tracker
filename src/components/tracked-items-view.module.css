@@ -196,6 +196,22 @@
     color: var(--color-text);
 }
 
+.remainingComplete {
+    background: color-mix(in srgb, var(--color-success) 35%, transparent);
+}
+
+.remainingComplete span {
+    color: color-mix(
+        in srgb,
+        var(--color-muted-strong) 60%,
+        var(--color-success)
+    );
+}
+
+.remainingComplete strong {
+    font-size: 1.2rem;
+}
+
 .removeButton {
     border: none;
     background: color-mix(in srgb, var(--color-danger) 92%, transparent);
@@ -212,6 +228,11 @@
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
+}
+
+.removeButtonComplete {
+    background: color-mix(in srgb, var(--color-success) 80%, transparent);
+    color: var(--color-text);
 }
 
 .removeButton:hover {

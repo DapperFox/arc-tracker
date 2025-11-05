@@ -29,9 +29,11 @@ export function TrackedItemsView() {
         const need = counts.need ?? 0;
         const remaining = Math.max(0, need - have);
 
+        const isComplete = remaining === 0 && need > 0;
+
         return {
           item,
-          counts: { have, need, remaining },
+          counts: { have, need, remaining, isComplete },
         };
       })
       .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
@@ -76,64 +78,79 @@ export function TrackedItemsView() {
         </div>
       ) : (
         <div className={styles.grid}>
-          {trackedItems.map(({ item, counts }) => (
-            <article key={item.id} className={styles.card}>
-              <header className={styles.cardHeader}>
-                <div>
-                  <h2 className={styles.cardTitle}>{item.name}</h2>
-                  <p className={styles.cardMeta}>
-                    {item.type ?? "Unknown Type"}
-                    {item.rarity ? ` · ${item.rarity}` : ""}
-                  </p>
-                </div>
-                <button
-                  className={styles.removeButton}
-                  type="button"
-                  onClick={() => removeTracked(item.id)}
-                  aria-label={`Stop tracking ${item.name}`}
-                >
-                  ×
-                </button>
-              </header>
+          {trackedItems.map(({ item, counts }) => {
+            const removeButtonClass = counts.isComplete
+              ? `${styles.removeButton} ${styles.removeButtonComplete}`
+              : styles.removeButton;
+            const remainingClass = counts.isComplete
+              ? `${styles.remaining} ${styles.remainingComplete}`
+              : styles.remaining;
 
-              {item.description ? (
-                <p className={styles.cardDescription}>{item.description}</p>
-              ) : null}
+            return (
+              <article key={item.id} className={styles.card}>
+                <header className={styles.cardHeader}>
+                  <div>
+                    <h2 className={styles.cardTitle}>{item.name}</h2>
+                    <p className={styles.cardMeta}>
+                      {item.type ?? "Unknown Type"}
+                      {item.rarity ? ` · ${item.rarity}` : ""}
+                    </p>
+                  </div>
+                  <button
+                    className={removeButtonClass}
+                    type="button"
+                    onClick={() => removeTracked(item.id)}
+                    aria-label={
+                      counts.isComplete
+                        ? `Remove completed item ${item.name}`
+                        : `Stop tracking ${item.name}`
+                    }
+                  >
+                    {counts.isComplete ? "✓" : "×"}
+                  </button>
+                </header>
 
-              <div className={styles.cardBody}>
-                <label className={styles.countField}>
-                  <span>Need</span>
-                  <input
-                    type="number"
-                    min={0}
-                    value={counts.need}
-                    onChange={(event) =>
-                      updateTracked(item.id, {
-                        need: sanitizeQuantity(event.target.value),
-                      })
-                    }
-                  />
-                </label>
-                <label className={styles.countField}>
-                  <span>Have</span>
-                  <input
-                    type="number"
-                    min={0}
-                    value={counts.have}
-                    onChange={(event) =>
-                      updateTracked(item.id, {
-                        have: sanitizeQuantity(event.target.value),
-                      })
-                    }
-                  />
-                </label>
-                <div className={styles.remaining}>
-                  <span>Remaining</span>
-                  <strong>{counts.remaining}</strong>
+                {item.description ? (
+                  <p className={styles.cardDescription}>{item.description}</p>
+                ) : null}
+
+                <div className={styles.cardBody}>
+                  <label className={styles.countField}>
+                    <span>Need</span>
+                    <input
+                      type="number"
+                      min={0}
+                      value={counts.need}
+                      onChange={(event) =>
+                        updateTracked(item.id, {
+                          need: sanitizeQuantity(event.target.value),
+                        })
+                      }
+                    />
+                  </label>
+                  <label className={styles.countField}>
+                    <span>Have</span>
+                    <input
+                      type="number"
+                      min={0}
+                      value={counts.have}
+                      onChange={(event) =>
+                        updateTracked(item.id, {
+                          have: sanitizeQuantity(event.target.value),
+                        })
+                      }
+                    />
+                  </label>
+                  <div className={remainingClass}>
+                    <span>{counts.isComplete ? "Complete" : "Remaining"}</span>
+                    <strong>
+                      {counts.isComplete ? "✓" : counts.remaining}
+                    </strong>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       )}
     </div>
