@@ -48,9 +48,17 @@ export function ItemsCatalog() {
             run.
           </p>
         </div>
-        <Link className={styles.trackedLink} href="/tracked">
-          Tracked Items ({totalTracked})
-        </Link>
+        <div className={styles.headerActions}>
+          <Link className={styles.linkButton} href="/tracked">
+            Tracked Items ({totalTracked})
+          </Link>
+          <Link
+            className={`${styles.linkButton} ${styles.secondaryLink}`}
+            href="/cheet-sheet"
+          >
+            Cheat Sheet
+          </Link>
+        </div>
       </header>
 
       <section className={styles.controls}>

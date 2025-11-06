@@ -1,12 +1,12 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 2.5rem;
     padding: 2.5rem clamp(1.5rem, 5vw, 3rem);
     color: var(--color-text);
 }
 
-.header {
+.headerTop {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -14,27 +14,32 @@
     gap: 1rem;
 }
 
+.titleBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
 .title {
     font-size: clamp(2rem, 5vw, 2.8rem);
     line-height: 1.1;
+    margin: 0;
 }
 
-.subtitle {
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
+.description {
     color: var(--color-muted);
-    max-width: 52ch;
+    margin: 0;
+    max-width: 65ch;
 }
 
-.headerActions {
+.actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    justify-content: flex-start;
 }
 
-.linkButton {
-    background: var(--color-warning);
+.actionLink {
+    background: var(--color-info);
     color: var(--color-text);
     padding: 0.75rem 1.25rem;
     border-radius: 18px;
@@ -47,68 +52,47 @@
     box-shadow: var(--shadow-soft);
 }
 
-.linkButton:hover {
+.actionLink:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
-    background: color-mix(in srgb, var(--color-warning) 75%, var(--color-info));
-}
-
-.secondaryLink {
-    background: var(--color-info);
-}
-
-.secondaryLink:hover {
     background: color-mix(in srgb, var(--color-info) 80%, white);
 }
 
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    align-items: flex-end;
+.headerNote {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    margin: 0;
 }
 
-.searchField,
-.typeField {
+.section {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    min-width: 220px;
-    flex: 1;
+    gap: 1.25rem;
 }
 
-.labelText {
-    font-size: 0.78rem;
-    font-weight: 600;
+.sectionHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.sectionKicker {
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
+    font-weight: 600;
     color: var(--color-muted-strong);
 }
 
-.searchField input,
-.typeField select {
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    border: 1px solid var(--color-border);
-    font-size: 0.95rem;
-    background: var(--color-surface);
-    color: var(--color-text);
-    transition:
-        border 0.2s ease,
-        box-shadow 0.2s ease;
-    box-shadow: var(--shadow-input);
+.sectionTitle {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    margin: 0;
 }
 
-.searchField input:focus,
-.typeField select:focus {
-    outline: none;
-    border-color: var(--color-info);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-info) 28%, transparent);
-}
-
-.resultsSummary {
-    font-size: 0.9rem;
+.sectionDescription {
+    margin: 0;
     color: var(--color-muted);
+    max-width: 70ch;
 }
 
 .grid {
@@ -120,26 +104,26 @@
     grid-auto-rows: 1fr;
 }
 
-.emptyState {
-    padding: 2rem;
-    border-radius: 16px;
-    background: var(--color-surface);
+.notice {
     border: 1px dashed var(--color-border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    background: color-mix(in srgb, var(--color-surface) 85%, transparent);
     color: var(--color-muted);
-    text-align: center;
+    font-size: 0.95rem;
 }
 
 @media (max-width: 600px) {
     .wrapper {
-        padding: 1.75rem 1.1rem;
+        padding: 1.75rem 1.1rem 4rem;
     }
 
-    .headerActions {
+    .actions,
+    .actionLink {
         width: 100%;
     }
 
-    .linkButton {
-        width: 100%;
+    .actionLink {
         text-align: center;
     }
 
