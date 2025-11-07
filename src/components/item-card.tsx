@@ -9,12 +9,13 @@ type ItemCardProps = {
   item: ArcItem;
   tracked: boolean;
   onToggle: () => void;
+  badge?: string;
 };
 
 const formatNumber = (value?: number) =>
   typeof value === "number" ? value.toLocaleString() : "—";
 
-export function ItemCard({ item, tracked, onToggle }: ItemCardProps) {
+export function ItemCard({ item, tracked, onToggle, badge }: ItemCardProps) {
   const hasImage = Boolean(item.imageFilename);
   const imageAlt = `${item.name} artwork`;
 
@@ -25,6 +26,7 @@ export function ItemCard({ item, tracked, onToggle }: ItemCardProps) {
 
   return (
     <article className={styles.card}>
+      {badge ? <span className={styles.badge}>{badge}</span> : null}
       <div className={styles.header}>
         {hasImage ? (
           <div className={styles.imageWrap}>

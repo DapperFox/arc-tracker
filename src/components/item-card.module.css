@@ -11,6 +11,7 @@
         box-shadow 0.2s ease;
     box-shadow: var(--shadow-soft);
     height: 100%;
+    position: relative;
 }
 
 .card:hover {
@@ -156,6 +157,30 @@
 
 .effectValue {
     color: var(--color-text);
+}
+
+.badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: var(--color-accent);
+    border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent);
+    color: var(--color-text);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    pointer-events: none;
+    text-transform: none;
+    font-variant-numeric: tabular-nums;
+    z-index: 2;
 }
 
 @media (max-width: 600px) {

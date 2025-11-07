@@ -8,37 +8,37 @@ import type { ArcItem } from "@/types/item";
 import styles from "./cheet-sheet.module.css";
 
 const KEEP_FOR_QUESTS = [
-  "Wasp Driver",
-  "Water Pump",
-  "Hornet Driver",
-  "Bicycle Pump",
-  "Fireball Burner",
-  "Camera Lens",
-  "Snitch Scanner",
-  "Tick Pod",
-  "Deflated Football",
+  { name: "Wasp Driver", quantity: 3 },
+  { name: "Water Pump", quantity: 1 },
+  { name: "Hornet Driver", quantity: 3 },
+  { name: "Bicycle Pump", quantity: 1 },
+  { name: "Fireball Burner", quantity: 1 },
+  { name: "Camera Lens", quantity: 1 },
+  { name: "Snitch Scanner", quantity: 2 },
+  { name: "Tick Pod", quantity: 1 },
+  { name: "Deflated Football", quantity: 1 },
 ] as const;
 
 const UPGRADING_BENCHES = [
-  "Bastion Cell",
-  "Bombardier Cell",
-  "Rocketeer Driver",
-  "Wasp Driver",
-  "Hornet Driver",
-  "Cooling Fan",
-  "Sentinel Firing Core",
-  "Fried Motherboard",
-  "Rusted Gear",
-  "Tick Pod",
-  "Rusted Shut Medical Kit",
-  "Power Cable",
-  "Motor",
-  "Laboratory Reagents",
-  "Cracked Bioscanner",
-  "Surveyor Vault",
-  "Toaster",
-  "Snitch Scanner",
-  "Pop Trigger",
+  { name: "Bastion Cell", quantity: 6 },
+  { name: "Bombardier Cell", quantity: 5 },
+  { name: "Rocketeer Driver", quantity: 4 },
+  { name: "Wasp Driver", quantity: 8 },
+  { name: "Hornet Driver", quantity: 8 },
+  { name: "Cooling Fan", quantity: 5 },
+  { name: "Sentinel Firing Core", quantity: 4 },
+  { name: "Fried Motherboard", quantity: 3 },
+  { name: "Rusted Gear", quantity: 3 },
+  { name: "Tick Pod", quantity: 8 },
+  { name: "Rusted Shut Medical Kit", quantity: 3 },
+  { name: "Power Cable", quantity: 3 },
+  { name: "Motor", quantity: 3 },
+  { name: "Laboratory Reagents", quantity: 3 },
+  { name: "Cracked Bioscanner", quantity: 2 },
+  { name: "Surveyor Vault", quantity: 2 },
+  { name: "Toaster", quantity: 3 },
+  { name: "Snitch Scanner", quantity: 8 },
+  { name: "Pop Trigger", quantity: 8 },
 ] as const;
 
 const NAME_ALIASES: Record<string, string> = {
@@ -76,8 +76,22 @@ const resolveSection = (names: readonly string[]) => {
   return { resolved, missing };
 };
 
-const keepResolution = resolveSection(KEEP_FOR_QUESTS);
-const upgradeResolution = resolveSection(UPGRADING_BENCHES);
+const keepQuantityLookup = new Map(
+  KEEP_FOR_QUESTS.map(({ name, quantity }) => [
+    normalizeName(name),
+    quantity,
+  ]),
+);
+const upgradeQuantityLookup = new Map(
+  UPGRADING_BENCHES.map(({ name, quantity }) => [
+    normalizeName(name),
+    quantity,
+  ]),
+);
+const keepResolution = resolveSection(KEEP_FOR_QUESTS.map((item) => item.name));
+const upgradeResolution = resolveSection(
+  UPGRADING_BENCHES.map((item) => item.name),
+);
 const prioritizedIds = new Set(
   [...keepResolution.resolved, ...upgradeResolution.resolved].map(
     (item) => item.id,
@@ -133,14 +147,19 @@ export function CheetSheet() {
           </p>
         </div>
         <div className={styles.grid}>
-          {keepResolution.resolved.map((item) => (
-            <ItemCard
-              key={`keep-${item.id}`}
-              item={item}
-              tracked={isTracked(item.id)}
-              onToggle={() => toggleTracked(item.id)}
-            />
-          ))}
+          {keepResolution.resolved.map((item) => {
+            const quantity = keepQuantityLookup.get(normalizeName(item.name));
+
+            return (
+              <ItemCard
+                key={`keep-${item.id}`}
+                item={item}
+                tracked={isTracked(item.id)}
+                onToggle={() => toggleTracked(item.id)}
+                badge={quantity ? `${quantity}x` : undefined}
+              />
+            );
+          })}
         </div>
       </section>
 
@@ -154,14 +173,19 @@ export function CheetSheet() {
           </p>
         </div>
         <div className={styles.grid}>
-          {upgradeResolution.resolved.map((item) => (
-            <ItemCard
-              key={`bench-${item.id}`}
-              item={item}
-              tracked={isTracked(item.id)}
-              onToggle={() => toggleTracked(item.id)}
-            />
-          ))}
+          {upgradeResolution.resolved.map((item) => {
+            const quantity = upgradeQuantityLookup.get(normalizeName(item.name));
+
+            return (
+              <ItemCard
+                key={`bench-${item.id}`}
+                item={item}
+                tracked={isTracked(item.id)}
+                onToggle={() => toggleTracked(item.id)}
+                badge={quantity ? `${quantity}x` : undefined}
+              />
+            );
+          })}
         </div>
       </section>
 
